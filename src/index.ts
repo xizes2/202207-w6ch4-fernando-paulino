@@ -2,25 +2,16 @@ import "./loadEnvironment";
 import Debug from "debug";
 import express from "express";
 import chalk from "chalk";
+import thingsRouter from "./routes/thingsRouter";
 
-const debug = Debug("api-rest-backend:index.ts"); // esto para que debuguee solo en los modulos de mi archivo index
-const app = express();
-
-app.use(express.json());
 const port = process.env.PORT ?? 4000;
 
-const thingsIknow = [
-  { id: 1, name: "redux" },
-  { id: 2, name: "html" },
-  { id: 3, name: "css" },
-];
+const debug = Debug("api-rest-backend:index.ts");
 
-app.get("/thingsIKnow", (req, res) => {
-  debug(chalk.green(`A request has arrived on port ${req.url}`));
-  res.status(200).json(thingsIknow);
-});
+const app = express();
+app.use(express.json());
 
-app.get("/thingsIKnow/");
+app.use("/things", thingsRouter);
 
 app.listen(port, () => {
   debug(chalk.yellowBright(`Server listening on port ${port}`));
