@@ -2,11 +2,9 @@ import "./loadEnvironment";
 import Debug from "debug";
 import express from "express";
 import chalk from "chalk";
-import http from "http";
 
-const debug = Debug("debugger-node");
+const debug = Debug("api-rest-backend:index.ts");
 const app = express();
-const server = http.createServer();
 
 app.use(express.json());
 const port = process.env.PORT ?? 4000;
@@ -20,8 +18,4 @@ app.get("/data", (req, res) => {
 
 app.listen(port, () => {
   debug(chalk.yellowBright(`Server listening on port ${port}`));
-});
-
-server.on("request", () => {
-  console.log("hola!");
 });
