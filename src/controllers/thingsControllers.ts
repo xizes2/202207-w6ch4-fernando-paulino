@@ -20,5 +20,18 @@ export const getThing = (req: Request, res: Response) => {
 };
 
 export const deleteThing = (req: Request, res: Response) => {
-  res.status(200);
+  const { idThing } = req.params;
+  const thingIndex = things.findIndex(
+    (thingsObj) => String(thingsObj.id) === idThing
+  );
+
+  things.splice(thingIndex, 1);
+  debug(chalk.red(`A delete request has arrived on port ${req.url}`));
+  res.status(200).json(things);
+};
+
+export const postThing = (req: Request, res: Response) => {
+  things.push(req.body);
+  debug(chalk.blueBright(`A post request has arrived on port ${req.url}`));
+  res.status(200).json(things);
 };
